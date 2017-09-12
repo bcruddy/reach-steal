@@ -43,7 +43,7 @@ export default function reducer (state = init, action, args) {
 
             overall++;
 
-            return Object.assign(state, {pick, round, overall});
+            return Object.assign({}, state, {pick, round, overall});
         default:
             return state;
     }
