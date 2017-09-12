@@ -1,0 +1,9 @@
+.initial-loading * {
+    margin: 30% auto;
+    display: block;
+}
+
+footer {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}

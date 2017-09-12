@@ -4,7 +4,7 @@ import json from 'rollup-plugin-json';
 import babel from 'rollup-plugin-babel';
 
 export default {
-    input: 'index.js',
+    input: 'src/index.js',
     output: {
         file: 'dist/bundle.js',
         format: 'iife'
