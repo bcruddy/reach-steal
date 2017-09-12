@@ -3,9 +3,10 @@ import {connect} from '../store';
 
 function takenPlayers (state) {
     const rows = state.taken.map((row, index) => {
-        const {Rank, Name, Team, Pos, Bye, Avg, ADP, 'vs. ADP': vsADP} = row;
+        const {Pick, Rank, Name, Team, Pos, Bye, Avg, ADP, 'vs. ADP': vsADP} = row;
         return html`
             <tr data-index="${index}">
+                <td>${Pick}</td>
                 <td>${Rank}</td>
                 <td>${Name}</td>
                 <td>${Team}</td>
@@ -19,6 +20,7 @@ function takenPlayers (state) {
         <table class="table table-striped">
             <thead>
                 <tr style="text-align: left;">
+                    <th>Pick</th>
                     <th>Rank</th>
                     <th>Name</th>
                     <th>Team</th>

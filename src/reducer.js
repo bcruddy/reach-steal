@@ -1,30 +1,49 @@
 import {standard} from '../data/rankings.json';
 
 const init = {
+    pick: 1,
+    round: 1,
+    overall: 1,
     available: standard,
     drafted: [],
     taken: []
 };
 
-export default function reducer (_state = init, action, args) {
-    const state = Object.assign({}, _state);
-    let index, picked;
+function getListName (action) {
+    let listName = '';
 
+    if (action === 'PLAYER_DRAFTED') {
+        listName = 'drafted';
+    }
+    else if (action === 'PLAYER_TAKEN') {
+        listName = 'taken';
+    }
+
+    return listName;
+}
+
+export default function reducer (state = init, action, args) {
     switch (action) {
         case 'PLAYER_DRAFTED':
-            [index] = args;
-            [picked] = state.available.splice(index, 1);
-
-            state.drafted.push(picked);
-
-            return state;
         case 'PLAYER_TAKEN':
-            [index] = args;
-            [picked] = state.available.splice(index, 1);
+            let {pick, round, overall, available} = state;
+            const [index] = args;
+            const [picked] = available.splice(index, 1);
+            const listName = getListName(action);
 
-            state.taken.push(picked);
+            picked.Pick = `${round}-${pick} (${overall})`;
 
-            return state;
+            state[listName].push(picked);
+            if (pick >= 12) {
+                pick = 1;
+                round++;
+            } else {
+                pick++;
+            }
+
+            overall++;
+
+            return Object.assign(state, {pick, round, overall});
         default:
             return state;
     }
