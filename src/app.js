@@ -1,11 +1,11 @@
 import html from 'innerself';
 import {connect} from './store';
+import availablePlayers from './components/available-players';
 
 function app (state) {
     return html`
         <div>
-            <p>This is a test. It ${state.test}.</p>
-            <button onclick="dispatch('TEST_ACTION', 'works')">Update</button>
+            ${availablePlayers()}
         </div>
     `;
 }
