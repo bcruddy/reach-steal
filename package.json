@@ -8,6 +8,7 @@
     "license": "MIT",
     "private": false,
     "scripts": {
+        "heroku-postbuild": "yarn build",
         "start": "yarn build && node server/index",
         "build": "rollup --config",
         "watch": "rollup --config --watch"
