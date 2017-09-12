@@ -18,6 +18,7 @@ app
 });
 
 // abstract this out into a separate file
-app.listen(3009, () => {
-    console.log('reach-steal listening on 3009');
+const port = process.env.PORT || 3009;
+app.listen(port, () => {
+    console.log(`reach-steal listening on ${port}`);
 });
