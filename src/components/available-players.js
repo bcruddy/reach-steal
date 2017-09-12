@@ -2,10 +2,10 @@ import html from 'innerself';
 import {connect} from '../store';
 
 function availablePlayers (state) {
-    const rows = state.available.map(row => {
+    const rows = state.available.map((row, index) => {
         const {Rank, Name, Team, Pos, Bye, Avg, ADP, 'vs. ADP': vsADP} = row;
         return html`
-            <tr data-index="${row.Rank - 1}">
+            <tr data-index="${index}">
                 <td>${Rank}</td>
                 <td>${Name}</td>
                 <td>${Team}</td>
@@ -15,7 +15,14 @@ function availablePlayers (state) {
                 <td>${ADP}</td>
                 <td>${vsADP}</td>
                 <td>
-                    buttons
+                    <div class="btn-group">
+                        <button class="btn btn-sm btn-primary" onclick="dispatch('PLAYER_DRAFTED', ${index})">
+                            <i class="fa fa-check"></i>
+                        </button>
+                        <button class="btn btn-sm btn-danger" onclick="dispatch('PLAYER_TAKEN', ${index})">
+                            <i class="fa fa-ban"></i>
+                        </button>
+                    </div>
                 </td>
             </tr>
         `;

@@ -8,14 +8,21 @@ const init = {
 
 export default function reducer (_state = init, action, args) {
     const state = Object.assign({}, _state);
+    let index, picked;
 
     switch (action) {
         case 'PLAYER_DRAFTED':
-        case 'PLAYER_TAKEN':
-            const [index] = args;
-            const picked = state.available.splice(index, 1);
+            [index] = args;
+            [picked] = state.available.splice(index, 1);
 
-            state[action === 'PLAYER_DRAFTED' ? 'drafted' : 'taken'].concat(picked);
+            state.drafted.push(picked);
+
+            return state;
+        case 'PLAYER_TAKEN':
+            [index] = args;
+            [picked] = state.available.splice(index, 1);
+
+            state.taken.push(picked);
 
             return state;
         default:
