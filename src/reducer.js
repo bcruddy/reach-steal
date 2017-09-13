@@ -4,7 +4,21 @@ const init = {
     pick: 1,
     round: 1,
     overall: 1,
-    available: standard,
+    available: standard.map(player => {
+        const {vsADP} = player;
+        let cssClass = '';
+
+        if (vsADP.includes('+')) {
+            cssClass = 'steal';
+        }
+        else if (vsADP.includes('-')) {
+            cssClass = 'reach';
+        }
+
+        player.cssClass = cssClass;
+
+        return player;
+    }),
     drafted: [],
     taken: []
 };
@@ -31,9 +45,9 @@ export default function reducer (state = init, action, args) {
             const [picked] = available.splice(index, 1);
             const listName = getListName(action);
 
-            picked.Pick = `${round}-${pick} (${overall})`;
+            picked.pick = `${round}-${pick} (${overall})`;
 
-            state[listName].push(picked);
+            state[listName].unshift(picked);
             if (pick >= 12) {
                 pick = 1;
                 round++;

@@ -3,15 +3,16 @@ import {connect} from '../store';
 
 function draftedPlayers (state) {
     const rows = state.drafted.map((row, index) => {
-        const {Pick, Rank, Name, Team, Pos, Bye, Avg, ADP, 'vs. ADP': vsADP} = row;
+        const {pick, rank, name, team, pos, bye} = row;
+
         return html`
             <tr data-index="${index}">
-                <td>${Pick}</td>
-                <td>${Rank}</td>
-                <td>${Name}</td>
-                <td>${Team}</td>
-                <td>${Pos}</td>
-                <td>${Bye}</td>
+                <td>${pick}</td>
+                <td>${rank}</td>
+                <td>${name}</td>
+                <td>${team}</td>
+                <td>${pos}</td>
+                <td>${bye}</td>
             </tr>
         `;
     }).join('');

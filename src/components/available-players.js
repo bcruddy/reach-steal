@@ -3,17 +3,18 @@ import {connect} from '../store';
 
 function availablePlayers (state) {
     const rows = state.available.map((row, index) => {
-        const {Rank, Name, Team, Pos, Bye, Avg, ADP, 'vs. ADP': vsADP} = row;
+        const {rank, name, team, pos, bye, avg, ADP, cssClass, vsADP} = row;
+
         return html`
             <tr data-index="${index}">
-                <td>${Rank}</td>
-                <td>${Name}</td>
-                <td>${Team}</td>
-                <td>${Pos}</td>
-                <td>${Bye}</td>
-                <td>${Avg}</td>
+                <td>${rank}</td>
+                <td>${name}</td>
+                <td>${team}</td>
+                <td>${pos}</td>
+                <td>${bye}</td>
+                <td>${avg}</td>
                 <td>${ADP}</td>
-                <td>${vsADP}</td>
+                <td class="vs-adp ${cssClass}">${vsADP}</td>
                 <td>
                     <div class="btn-group">
                         <button class="btn btn-sm btn-primary" onclick="dispatch('PLAYER_DRAFTED', ${index})">
