@@ -1,21 +1,13 @@
 import {standard} from '../data/rankings.json';
 
-const init = {
+export const init = {
     pick: 1,
     round: 1,
     overall: 1,
     available: standard.map(player => {
         const {vsADP} = player;
-        let cssClass = '';
 
-        if (vsADP.includes('+')) {
-            cssClass = 'steal';
-        }
-        else if (vsADP.includes('-')) {
-            cssClass = 'reach';
-        }
-
-        player.cssClass = cssClass;
+        player.cssClass = getCssClass(vsADP);
 
         return player;
     }),
@@ -23,7 +15,20 @@ const init = {
     taken: []
 };
 
-function getListName (action) {
+export function getCssClass (vsADP) {
+    let cssClass = '';
+
+    if (vsADP.includes('+')) {
+        cssClass = 'steal';
+    }
+    else if (vsADP.includes('-')) {
+        cssClass = 'reach';
+    }
+
+    return cssClass;
+}
+
+export function getListName (action) {
     let listName = '';
 
     if (action === 'PLAYER_DRAFTED') {
@@ -34,6 +39,17 @@ function getListName (action) {
     }
 
     return listName;
+}
+
+export function getPickRound (pick, round) {
+    if (pick >= 12) {
+        pick = 1;
+        round++;
+    } else {
+        pick++;
+    }
+
+    return [pick, round];
 }
 
 export default function reducer (state = init, action, args) {
@@ -48,13 +64,8 @@ export default function reducer (state = init, action, args) {
             picked.pick = `${round}-${pick} (${overall})`;
 
             state[listName].unshift(picked);
-            if (pick >= 12) {
-                pick = 1;
-                round++;
-            } else {
-                pick++;
-            }
-
+    
+            [pick, round] = getPickRound(pick, round);
             overall++;
 
             return Object.assign({}, state, {pick, round, overall});
