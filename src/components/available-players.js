@@ -6,16 +6,16 @@ function availablePlayers (state) {
         const {rank, name, team, pos, bye, avg, ADP, cssClass, vsADP} = row;
 
         return html`
-            <tr data-index="${index}">
-                <td>${rank}</td>
-                <td>${name}</td>
-                <td>${team}</td>
-                <td>${pos}</td>
-                <td>${bye}</td>
-                <td>${avg}</td>
-                <td>${ADP}</td>
-                <td class="vs-adp ${cssClass}">${vsADP}</td>
-                <td>
+            <tr data-index="${index}" class="${cssClass}">
+                <td class="rank">${rank}</td>
+                <td class="name">${name}</td>
+                <td class="team">${team}</td>
+                <td class="pos">${pos}</td>
+                <td class="bye">${bye}</td>
+                <td class="avg">${avg}</td>
+                <td class="adp">${ADP}</td>
+                <td class="vs-adp">${vsADP}</td>
+                <td class="actions">
                     <div class="btn-group">
                         <button class="btn btn-sm btn-primary" onclick="dispatch('PLAYER_DRAFTED', ${index})">
                             <i class="fa fa-check"></i>
@@ -30,7 +30,7 @@ function availablePlayers (state) {
     }).join('');
 
     return html`
-        <table class="table table-striped">
+        <table class="table available-players">
             <thead>
                 <tr style="text-align: left;">
                     <th>Rank</th>
